@@ -1,18 +1,24 @@
 package linkedlists;
 
 public class Node {
-	private int data;
+	private int index;
+	private int count;
 	public Node next; //Link
 	public Node previous; //Link
 	
-	public Node(int data) {
-		this.data = data;
+	public Node(int index, int count) {
+		this.index = index;
+		this.count = count;
 		this.next = null;
 		this.previous = null;
 	}
 
-	public int getData() {
-		return data;
+	public int getIndex() {
+		return index;
+	}
+	
+	public int getCount() {
+		return count;
 	}
 
 }

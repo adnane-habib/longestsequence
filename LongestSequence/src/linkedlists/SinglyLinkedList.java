@@ -3,62 +3,85 @@ package linkedlists;
 public class SinglyLinkedList {
 	
 	Node head;
-	int counts=0;
+
+	int indexMax = -1;
+	int countMax = 0;
+	
 	
 	public void clearAll() {
+		indexMax = -1;
+		countMax=0;
 		if (head == null) {
-			counts=0;
+
 			//return;
 		} else {
 			this.head = null;
-			this.counts=0;
 			//return;			
 		}
 		
 	}
 	
-	int getCount() {
-		return counts;
+	int getCountMax() {
+		return countMax;
 	}
 	
-	public void append(int data) {
-		Node newNode = new Node(data);
+	int getIndexMax() {
+		return indexMax;
+	}	
+	
+	public void append(int data, int count) {
+		Node newNode = new Node(data, count);
 		if (head == null) {
 			head = newNode;
-			counts++;
+			countMax = count;
+			indexMax = data;
 			return;
 		}
+		
 		Node current = head;
 		
 		while(current.next !=null) {
 			current = current.next;
 					}
 		current.next = newNode;
-		counts++;
+		 if (countMax <count)
+		 {
+			 countMax = count;
+			 indexMax = data;
+		 }
+
 		}
 	public void display() {
 		Node current = head;
 		
 		while(current!=null) {
-			System.out.print(current.getData()+" -> ");
+			System.out.println(current.getIndex()+"-"+current.getCount());
 			current = current.next;
 		}
 		System.out.println("null");
 		
 	}
 	
-	public void prepend(int data) {
-		Node newNode = new Node(data);
+	public void prepend(int data, int count) {
+		Node newNode = new Node(data, count);
 		newNode.next = head;
 		head = newNode;
-		counts++;
+		 if (countMax <count)
+		 {
+			 countMax = count;
+			 indexMax = data;
+		 }
 		
 	}
-	public void insertAt(int data, int position) {
-		Node newNode = new Node(data);
+	public void insertAt(int data, int count, int position) {
+		Node newNode = new Node(data, count);
 		if(position <= 0) { // accommodate negative index position
-			prepend(data);
-			counts++;
+			prepend(data, count);
+			 if (countMax <count)
+			 {
+				 countMax = count;
+				 indexMax = data;
+			 }
 			return;
 		}
 		Node current = head;
@@ -69,11 +92,15 @@ public class SinglyLinkedList {
 		}
 		if (current == null) {
 			System.out.println("position out of bounds");
-			append(data); // accommodate out of bounds
+			append(data, count); // accommodate out of bounds
 		} else {
 			newNode.next = current.next;
 			current.next = newNode;
-			counts++;
+			 if (countMax <count)
+			 {
+				 countMax = count;
+				 indexMax = data;
+			 }
 		}
 		
 	}
@@ -83,15 +110,15 @@ public class SinglyLinkedList {
 			return;
 		}
 		
-		if (head.getData()==data) {
+		if (head.getIndex()==data) {
 			head = head.next;
-			counts--;
+
 		}
 		
 		Node current = head;
 		Node previous = null;
 		
-		while(current!=null && current.getData()!=data) {
+		while(current!=null && current.getIndex()!=data) {
 			
 				previous = current;
 				current = current.next;	
